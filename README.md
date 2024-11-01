@@ -5,25 +5,33 @@ A fast WebP to PNG converter built in Go. WebD processes all WebP images in a gi
 ## Installation
 
 ### Prerequisites
+
 - [Go](https://golang.org/doc/install) version 1.22 or higher
 
 ### Quick Install
+
 ```bash
 go install github.com/v4n1lla-1ce/webd/cmd/webd@latest
 ```
 
 ## Usage
+
 ```bash
 webd <directory>
 ```
 
 ### Examples
+
 ```bash
+# Help Menu (both works)
+webd -h
+webd
+
 # Convert all WebP files in current directory
 webd .
 
-# Convert all WebP files in a specific directory
-webd /path/to/images
+# Convert all WebP files in a specific directory whilst deleting all original files
+webd -d /path/to/images
 
 # Convert all WebP files in parent directory
 webd ../
@@ -34,16 +42,21 @@ webd ../
 If you get a "command not found" error after installation, you need to add Go's bin directory to your PATH:
 
 #### Linux/macOS
+
 Add this line to your `~/.bashrc`, `~/.zshrc`, or equivalent:
+
 ```bash
 export PATH=$PATH:$(go env GOPATH)/bin
 ```
+
 Then restart your terminal or run:
+
 ```bash
 source ~/.bashrc  # or source ~/.zshrc
 ```
 
 #### Windows
+
 1. Open System Properties → Advanced → Environment Variables
 2. Under "User variables", find "Path"
 3. Click "Edit" and add: `%USERPROFILE%\go\bin`
@@ -54,7 +67,7 @@ source ~/.bashrc  # or source ~/.zshrc
 
 - 🚀 Concurrent processing for faster conversion
 - 🎯 Preserves original directory structure
-- 💾 Keeps original files untouched
+- 💾 Choose to keep original files untouched or delete them
 - 📁 Simple directory-based operation
 
 ---
@@ -138,7 +151,7 @@ saved := NewPipeline(encoded, SaveToDisk)  // Save files
 3. **Maintainable Code**
    - Clear separation of concerns
    - Easy to add new processing stages
-  
+
 ## Visualisation
 
 ![pipeline](https://github.com/user-attachments/assets/95d7011a-b7bf-4ee8-8919-5e9af506a768)
@@ -147,7 +160,6 @@ saved := NewPipeline(encoded, SaveToDisk)  // Save files
 
 - Only processes `.webp` files
 - Converts exclusively to PNG format
-- Original WebP files are preserved
 - Requires write permissions in target directory
 
 ## License
