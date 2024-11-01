@@ -78,7 +78,7 @@ func NewPipeline[I any, O any](input <-chan I, process func(I) O) <-chan O {
 ```
 Load Files → Decode WebP → Encode PNG → Save to Disk
    ↓            ↓            ↓            ↓
-[paths] → [webp images] → [png bytes] → [saved files]
+[webp imgs] → [images] → [png bytes] → [saved files]
 ```
 
 Data flows through the pipeline using a custom structure:
