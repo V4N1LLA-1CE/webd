@@ -7,7 +7,7 @@ import (
 )
 
 type Arguments struct {
-	Dir string
+	DirPath string
 }
 
 func GetArgs() Arguments {
@@ -42,6 +42,6 @@ func GetArgs() Arguments {
 	}
 
 	return Arguments{
-		Dir: execDir,
+		DirPath: execDir,
 	}
 }

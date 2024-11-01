@@ -9,32 +9,35 @@ import (
 	"os"
 )
 
-func DecodeWebp(path string) (image.Image, error) {
+func DecodeWebp(path string) image.Image {
 	// open file
 	f, err := os.Open(path)
 	if err != nil {
-		return nil, fmt.Errorf("failed to open file: %v", err)
+		fmt.Errorf("failed to open file: %v", err)
+		return nil
 	}
 	defer f.Close()
 
 	// decode webp
 	img, err := webp.Decode(f)
 	if err != nil {
-		return nil, fmt.Errorf("failed to decode webp: %v", err)
+		fmt.Errorf("failed to decode webp: %v", err)
+		return nil
 	}
 
-	return img, nil
+	return img
 }
 
-func EncodeToPng(img image.Image) (bytes.Buffer, error) {
+func EncodeToPng(img image.Image) bytes.Buffer {
 	// make a buffer
 	var buf bytes.Buffer
 
 	// encode and write to buffer
 	err := png.Encode(&buf, img)
 	if err != nil {
-		return buf, fmt.Errorf("failed to encode to png: %v", err)
+		fmt.Errorf("failed to encode to png: %v", err)
+		return buf
 	}
 
-	return buf, nil
+	return buf
 }

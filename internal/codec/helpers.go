@@ -4,15 +4,13 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+
+	"github.com/google/uuid"
 )
 
-func SaveToDisk(img bytes.Buffer, path string) (string, error) {
-	// create file path
-	filepath := fmt.Sprintf("%v.png", path)
+func SaveToDisk(img bytes.Buffer) string {
+	filename := fmt.Sprintf("%v.png", uuid.New().String())
+	os.WriteFile(filename, img.Bytes(), 0644)
 
-	err := os.WriteFile(filepath, img.Bytes(), 0644)
-	if err != nil {
-		return "", fmt.Errorf("failed to save file: %v\n", err)
-	}
-	return filepath, nil
+	return filename
 }
