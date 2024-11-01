@@ -8,8 +8,8 @@ import (
 )
 
 type Arguments struct {
-	DirPath    string
-	DeleteWebp bool
+	DirPath      string
+	DeleteOrigin bool
 }
 
 func GetArgs() Arguments {
@@ -63,7 +63,7 @@ func GetArgs() Arguments {
 	}
 
 	return Arguments{
-		DirPath:    execDir,
-		DeleteWebp: *deleteWebp,
+		DirPath:      execDir,
+		DeleteOrigin: *deleteWebp,
 	}
 }
