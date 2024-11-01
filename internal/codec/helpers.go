@@ -25,6 +25,15 @@ func SaveToDisk(data pipeline.PipelineData) pipeline.PipelineData {
 		return data
 	}
 
+	// check flag
+	if data.DeleteWebp == true {
+		// create file path
+		err := os.Remove(data.SourcePath)
+		if err != nil {
+			fmt.Errorf("failed to delete original file: %s: %v\n", data.SourcePath, err)
+		}
+	}
+
 	data.Value = outputFilename
 	return data
 }
