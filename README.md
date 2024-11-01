@@ -2,10 +2,6 @@
 
 A fast WebP to PNG converter built in Go. WebD processes all WebP images in a given directory, converting them to PNG format while preserving the original directory structure.
 
-## Demo
-
-Coming soon
-
 ## Installation
 
 ### Prerequisites
