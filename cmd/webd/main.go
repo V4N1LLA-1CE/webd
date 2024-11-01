@@ -14,16 +14,16 @@ func main() {
 	fmt.Printf("Converting all webp in %v to png\n", args.DirPath)
 
 	// load data into pipeline
-	webpImages := pipeline.LoadPipeline(args.DirPath)
+	files := pipeline.LoadPipeline(args.DirPath)
 
 	// decode webp to raw image format
-	rawImages := pipeline.NewPipeline(webpImages, codec.DecodeWebp)
+	decoded := pipeline.NewPipeline(files, codec.DecodeWebp)
 
 	// encode raw image as png
-	pngImages := pipeline.NewPipeline(rawImages, codec.EncodeToPng)
+	encoded := pipeline.NewPipeline(decoded, codec.EncodeToPng)
 
 	// save images to disk
-	saved := pipeline.NewPipeline(pngImages, codec.SaveToDisk)
+	saved := pipeline.NewPipeline(encoded, codec.SaveToDisk)
 
 	for result := range saved {
 		if outPath, ok := result.Value.(string); ok {
