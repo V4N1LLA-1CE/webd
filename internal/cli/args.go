@@ -1,24 +1,45 @@
 package cli
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
 )
 
 type Arguments struct {
-	DirPath string
+	DirPath    string
+	DeleteWebp bool
 }
 
 func GetArgs() Arguments {
-	// make sure there is an argument
-	if len(os.Args) != 2 {
-		fmt.Println("Usage: webd <directory>")
-		os.Exit(1)
+	// define flags
+	help := flag.Bool("h", false, "show help")
+	deleteWebp := flag.Bool("d", false, "delete original webp files after conversion")
+
+	// parse flag
+	flag.Parse()
+
+	if *help {
+		fmt.Println("\nUsage: webd [flags] <directory>")
+		fmt.Println("\nFlags:")
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
+
+	args := flag.Args()
+
+	// make sure there is 1 directory argument
+	if len(args) != 1 {
+		fmt.Println("\nUsage: webd [flags] <directory>")
+		fmt.Println("\nFlags:")
+		flag.PrintDefaults()
+		fmt.Println()
+		os.Exit(0)
 	}
 
 	// get absolute path
-	execDir, err := filepath.Abs(os.Args[1])
+	execDir, err := filepath.Abs(args[0])
 	if err != nil {
 		fmt.Printf("Error getting absolute path: %v\n", err)
 		os.Exit(1)
@@ -42,6 +63,7 @@ func GetArgs() Arguments {
 	}
 
 	return Arguments{
-		DirPath: execDir,
+		DirPath:    execDir,
+		DeleteWebp: *deleteWebp,
 	}
 }
