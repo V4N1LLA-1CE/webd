@@ -1,20 +1,35 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
+
 	"github.com/v4n1lla-1ce/webd/internal/cli"
 	"github.com/v4n1lla-1ce/webd/internal/codec"
 	"github.com/v4n1lla-1ce/webd/internal/pipeline"
 )
 
+//go:embed banner.txt
+var banner string
+
 func main() {
+	// print banner
+	fmt.Println(banner)
+	fmt.Printf("\n© Austin Sofaer (v4n1lla-1ce)\n\n")
+
 	// get arguments from cli
 	args := cli.GetArgs()
 
-	fmt.Printf("Converting all webp in %v to png\n", args.DirPath)
+	fmt.Printf("Starting WebP to PNG conversion\n")
+	fmt.Printf("Source directory: %v\n", args.DirPath)
+	fmt.Printf("Mode: %s\n", map[bool]string{
+		true:  "Converting WebP to PNG and deleting original files",
+		false: "Converting WebP to PNG and preserving original files",
+	}[args.DeleteWebp])
+	fmt.Println()
 
 	// load data into pipeline
-	files := pipeline.LoadPipeline(args.DirPath)
+	files := pipeline.LoadPipeline(args.DirPath, args.DeleteWebp)
 
 	// decode webp to raw image format
 	decoded := pipeline.NewPipeline(files, codec.DecodeWebp)
@@ -27,7 +42,11 @@ func main() {
 
 	for result := range saved {
 		if outPath, ok := result.Value.(string); ok {
-			fmt.Printf("Converted and saved to: %s\n", outPath)
+			if args.DeleteWebp {
+				fmt.Printf("Converted WebP to PNG and saved to: %s\n - Deleted original: %v\n", outPath, result.SourcePath)
+			} else {
+				fmt.Printf("Converted WebP to PNG and saved to: %s\n", outPath)
+			}
 		}
 	}
 }
