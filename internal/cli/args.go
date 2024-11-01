@@ -48,17 +48,17 @@ func GetArgs() Arguments {
 	// check if path exists and is accessable
 	info, err := os.Stat(execDir)
 	if os.IsNotExist(err) {
-		fmt.Printf("%v does not exist\n", execDir)
+		fmt.Printf("%v does not exist\n\n", execDir)
 		os.Exit(1)
 	}
 	if err != nil {
-		fmt.Printf("Error accessing path: %v\n", execDir)
+		fmt.Printf("Error accessing path: %v\n\n", execDir)
 		os.Exit(1)
 	}
 
 	// check if path is a directory
 	if !info.IsDir() {
-		fmt.Printf("%v is not a directory\n", execDir)
+		fmt.Printf("%v is not a directory\n\n", execDir)
 		os.Exit(1)
 	}
 
