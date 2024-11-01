@@ -7,8 +7,15 @@ import (
 	"strings"
 )
 
-func LoadPipeline(directory string) <-chan string {
-	out := make(chan string)
+type PipelineData struct {
+	Value      any
+	SourcePath string
+	Directory  string
+	BaseName   string
+}
+
+func LoadPipeline(directory string) <-chan PipelineData {
+	out := make(chan PipelineData)
 
 	go func() {
 		// close channel once there are no more webp files to be added to pipeline
@@ -30,7 +37,15 @@ func LoadPipeline(directory string) <-chan string {
 			// check if webp, if yes, add full path to channel
 			if strings.ToLower(filepath.Ext(entry.Name())) == ".webp" {
 				fullpath := filepath.Join(directory, entry.Name())
-				out <- fullpath
+				baseName := strings.TrimSuffix(entry.Name(), filepath.Ext(entry.Name()))
+
+				data := PipelineData{
+					SourcePath: fullpath,
+					Directory:  directory,
+					BaseName:   baseName,
+				}
+
+				out <- data
 			}
 		}
 	}()

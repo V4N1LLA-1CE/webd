@@ -19,12 +19,15 @@ func main() {
 	// decode webp to raw image format
 	rawImages := pipeline.NewPipeline(webpImages, codec.DecodeWebp)
 
-	// encode raw image as png / jpeg
+	// encode raw image as png
 	pngImages := pipeline.NewPipeline(rawImages, codec.EncodeToPng)
 
 	// save images to disk
-	filenames := pipeline.NewPipeline(pngImages, codec.SaveToDisk)
-	for name := range filenames {
-		fmt.Println(name)
+	saved := pipeline.NewPipeline(pngImages, codec.SaveToDisk)
+
+	for result := range saved {
+		if outPath, ok := result.Value.(string); ok {
+			fmt.Printf("Converted and saved to: %s\n", outPath)
+		}
 	}
 }
