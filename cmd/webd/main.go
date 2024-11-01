@@ -11,5 +11,9 @@ func main() {
 
 	fmt.Printf("Converting all webp in %v to png\n", args.Dir)
 
-	// put job into pipeline
+	// load data into pipeline
+
+	// decode webp to raw image format
+	// encode raw image as png / jpeg
+	// save images to disk
 }
