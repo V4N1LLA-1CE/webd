@@ -12,9 +12,10 @@ type PipelineData struct {
 	SourcePath string
 	Directory  string
 	BaseName   string
+	DeleteWebp bool
 }
 
-func LoadPipeline(directory string) <-chan PipelineData {
+func LoadPipeline(directory string, deleteWebp bool) <-chan PipelineData {
 	out := make(chan PipelineData)
 
 	go func() {
@@ -43,6 +44,7 @@ func LoadPipeline(directory string) <-chan PipelineData {
 					SourcePath: fullpath,
 					Directory:  directory,
 					BaseName:   baseName,
+					DeleteWebp: deleteWebp,
 				}
 
 				out <- data
