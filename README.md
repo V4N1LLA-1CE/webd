@@ -1,4 +1,4 @@
-# WebD
+# WebD - WebP to PNG Converter
 
 A fast WebP to PNG converter built in Go. WebD processes all WebP images in a given directory, converting them to PNG format while preserving the original directory structure.
 
@@ -8,30 +8,51 @@ Coming soon
 
 ## Installation
 
+### Prerequisites
+- [Go](https://golang.org/doc/install) version 1.22 or higher
+
+### Quick Install
 ```bash
-go install github.com/v4n1lla-1ce/webd@latest
+go install github.com/v4n1lla-1ce/webd/cmd/webd@latest
 ```
 
 ## Usage
-
-Convert all WebP images in a directory:
-
 ```bash
-webd /path/to/directory
+webd <directory>
 ```
 
-Example:
-
+### Examples
 ```bash
-# Convert all WebP images in current directory
+# Convert all WebP files in current directory
 webd .
 
-# Convert all WebP images in specific directory
-webd ~/Pictures/webp-images
+# Convert all WebP files in a specific directory
+webd /path/to/images
 
-# Show help
-webd -h
+# Convert all WebP files in parent directory
+webd ../
 ```
+
+### Troubleshooting
+
+If you get a "command not found" error after installation, you need to add Go's bin directory to your PATH:
+
+#### Linux/macOS
+Add this line to your `~/.bashrc`, `~/.zshrc`, or equivalent:
+```bash
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+Then restart your terminal or run:
+```bash
+source ~/.bashrc  # or source ~/.zshrc
+```
+
+#### Windows
+1. Open System Properties → Advanced → Environment Variables
+2. Under "User variables", find "Path"
+3. Click "Edit" and add: `%USERPROFILE%\go\bin`
+4. Click "OK" to save
+5. Restart your terminal
 
 ## Features
 
@@ -42,7 +63,7 @@ webd -h
 
 ---
 
-# Case Study: Pipeline Concurrency Pattern in WebD
+## Case Study: Pipeline Concurrency Pattern in WebD
 
 This project demonstrates the pipeline concurrency pattern in Go. Here's how WebD processes multiple images efficiently using concurrent stages.
 
@@ -97,6 +118,7 @@ type PipelineData struct {
 The pipeline is constructed in stages:
 
 ```go
+// This is a simplified version
 files := LoadPipeline(directory)          // Find WebP files
 decoded := NewPipeline(files, DecodeWebp) // Decode WebP
 encoded := NewPipeline(decoded, EncodePng) // Encode PNG
@@ -120,3 +142,18 @@ saved := NewPipeline(encoded, SaveToDisk)  // Save files
 3. **Maintainable Code**
    - Clear separation of concerns
    - Easy to add new processing stages
+  
+## Visualisation
+
+![pipeline](https://github.com/user-attachments/assets/95d7011a-b7bf-4ee8-8919-5e9af506a768)
+
+## Limitations
+
+- Only processes `.webp` files
+- Converts exclusively to PNG format
+- Original WebP files are preserved
+- Requires write permissions in target directory
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
