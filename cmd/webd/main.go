@@ -19,7 +19,7 @@ func main() {
 
 	// get arguments from cli
 	args := cli.GetArgs()
-	ConvertWebpToPNG(args.DirPath, args.DeleteWebp)
+	ConvertWebpToPNG(args.DirPath, args.DeleteOrigin)
 }
 
 func ConvertWebpToPNG(directory string, deleteWebp bool) {

@@ -26,7 +26,7 @@ func SaveToDisk(data pipeline.PipelineData) pipeline.PipelineData {
 	}
 
 	// check flag
-	if data.DeleteWebp == true {
+	if data.DeleteOrigin == true {
 		// create file path
 		err := os.Remove(data.SourcePath)
 		if err != nil {

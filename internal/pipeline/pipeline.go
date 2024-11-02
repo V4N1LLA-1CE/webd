@@ -8,14 +8,14 @@ import (
 )
 
 type PipelineData struct {
-	Value      any
-	SourcePath string
-	Directory  string
-	BaseName   string
-	DeleteWebp bool
+	Value        any
+	SourcePath   string
+	Directory    string
+	BaseName     string
+	DeleteOrigin bool
 }
 
-func LoadPipeline(directory string, deleteWebp bool) <-chan PipelineData {
+func LoadPipeline(directory string, deleteOrigin bool) <-chan PipelineData {
 	out := make(chan PipelineData)
 
 	go func() {
@@ -41,10 +41,10 @@ func LoadPipeline(directory string, deleteWebp bool) <-chan PipelineData {
 				baseName := strings.TrimSuffix(entry.Name(), filepath.Ext(entry.Name()))
 
 				data := PipelineData{
-					SourcePath: fullpath,
-					Directory:  directory,
-					BaseName:   baseName,
-					DeleteWebp: deleteWebp,
+					SourcePath:   fullpath,
+					Directory:    directory,
+					BaseName:     baseName,
+					DeleteOrigin: deleteOrigin,
 				}
 
 				out <- data
