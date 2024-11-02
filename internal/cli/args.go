@@ -15,7 +15,7 @@ type Arguments struct {
 func GetArgs() Arguments {
 	// define flags
 	help := flag.Bool("h", false, "show help")
-	deleteWebp := flag.Bool("d", false, "delete original webp files after conversion")
+	deleteOrigin := flag.Bool("d", false, "delete original files after conversion")
 
 	// parse flag
 	flag.Parse()
@@ -64,6 +64,6 @@ func GetArgs() Arguments {
 
 	return Arguments{
 		DirPath:      execDir,
-		DeleteOrigin: *deleteWebp,
+		DeleteOrigin: *deleteOrigin,
 	}
 }
