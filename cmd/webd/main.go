@@ -19,20 +19,21 @@ func main() {
 
 	// get arguments from cli
 	args := cli.GetArgs()
-	ConvertWebpToPNG(args.DirPath, args.DeleteOrigin)
+	ConvertWebpToPNG(args)
 }
 
-func ConvertWebpToPNG(directory string, deleteWebp bool) {
+func ConvertWebpToPNG(args cli.Arguments) {
+
 	fmt.Printf("Starting WebP to PNG conversion\n")
-	fmt.Printf("Source directory: %v\n", directory)
+	fmt.Printf("Source directory: %v\n", args.DirPath)
 	fmt.Printf("Mode: %s\n", map[bool]string{
 		true:  "Converting WebP to PNG and deleting original files",
 		false: "Converting WebP to PNG and preserving original files",
-	}[deleteWebp])
+	}[args.DeleteOrigin])
 	fmt.Println()
 
 	// load data into pipeline
-	files := pipeline.LoadPipeline(directory, deleteWebp)
+	files := pipeline.LoadPipeline(args.DirPath, args.DeleteOrigin)
 
 	// decode webp to raw image format
 	decoded := pipeline.NewPipeline(files, codec.DecodeWebp)
@@ -45,7 +46,7 @@ func ConvertWebpToPNG(directory string, deleteWebp bool) {
 
 	for result := range saved {
 		if outPath, ok := result.Value.(string); ok {
-			if deleteWebp {
+			if args.DeleteOrigin {
 				fmt.Printf("Converted WebP to PNG and saved to: %s\n - Deleted original: %v\n", outPath, result.SourcePath)
 			} else {
 				fmt.Printf("Converted WebP to PNG and saved to: %s\n", outPath)
