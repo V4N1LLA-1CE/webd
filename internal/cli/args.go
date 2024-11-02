@@ -13,6 +13,7 @@ type Arguments struct {
 	DirPath      string
 	DeleteOrigin bool
 	Ext          string
+	Verbosity    bool
 }
 
 func GetArgs() Arguments {
@@ -21,6 +22,7 @@ func GetArgs() Arguments {
 	deleteOrigin := flag.Bool("d", false, "delete original files after conversion")
 	version := flag.Bool("v", false, "show webd version")
 	webp2png := flag.Bool("webp2png", false, "convert WebP to PNG")
+	verbosity := flag.Bool("verbose", false, "show logs when converting")
 
 	// parse flag
 	flag.Parse()
@@ -85,6 +87,7 @@ func GetArgs() Arguments {
 		DirPath:      execDir,
 		DeleteOrigin: *deleteOrigin,
 		Ext:          ext,
+		Verbosity:    *verbosity,
 	}
 }
 
