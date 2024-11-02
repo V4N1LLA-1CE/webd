@@ -12,7 +12,7 @@ const Version = "v0.1.2"
 type Arguments struct {
 	DirPath      string
 	DeleteOrigin bool
-	Mode         string
+	Ext          string
 }
 
 func GetArgs() Arguments {
@@ -20,6 +20,7 @@ func GetArgs() Arguments {
 	help := flag.Bool("h", false, "show help")
 	deleteOrigin := flag.Bool("d", false, "delete original files after conversion")
 	version := flag.Bool("v", false, "show webd version")
+	webp2png := flag.Bool("webp2png", false, "convert WebP to PNG")
 
 	// parse flag
 	flag.Parse()
@@ -71,9 +72,19 @@ func GetArgs() Arguments {
 		os.Exit(1)
 	}
 
+	// set extension based on flag
+	var ext string
+	if *webp2png {
+		ext = ".webp"
+	} else {
+		fmt.Println("please specify a conversion type (i.e. -webp2png)\n")
+		os.Exit(1)
+	}
+
 	return Arguments{
 		DirPath:      execDir,
 		DeleteOrigin: *deleteOrigin,
+		Ext:          ext,
 	}
 }
 

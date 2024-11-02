@@ -3,14 +3,15 @@ package codec
 import (
 	"bytes"
 	"fmt"
-	"github.com/v4n1lla-1ce/webd/internal/pipeline"
-	"golang.org/x/image/webp"
 	"image"
 	"image/png"
 	"os"
+
+	"github.com/v4n1lla-1ce/webd/internal/types"
+	"golang.org/x/image/webp"
 )
 
-func DecodeWebp(data pipeline.PipelineData) pipeline.PipelineData {
+func DecodeWebp(data types.PipelineData) types.PipelineData {
 	// open file
 	f, err := os.Open(data.SourcePath)
 	if err != nil {
@@ -30,7 +31,7 @@ func DecodeWebp(data pipeline.PipelineData) pipeline.PipelineData {
 	return data
 }
 
-func EncodeToPng(data pipeline.PipelineData) pipeline.PipelineData {
+func EncodeToPng(data types.PipelineData) types.PipelineData {
 	// assert data.Value to be image.Image so encode works
 	img, ok := data.Value.(image.Image)
 	if !ok {

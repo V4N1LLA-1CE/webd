@@ -6,10 +6,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/v4n1lla-1ce/webd/internal/pipeline"
+	"github.com/v4n1lla-1ce/webd/internal/types"
 )
 
-func SaveToDisk(data pipeline.PipelineData) pipeline.PipelineData {
+func SaveToDisk(data types.PipelineData) types.PipelineData {
 	buf, ok := data.Value.(bytes.Buffer)
 	if !ok {
 		fmt.Errorf("value is not a bytes.Buffer")
