@@ -8,11 +8,21 @@ import (
 	"time"
 
 	"github.com/v4n1lla-1ce/webd/internal/cli"
-	"github.com/v4n1lla-1ce/webd/internal/codec"
 	"github.com/v4n1lla-1ce/webd/internal/types"
 )
 
+type ConversionPipeline struct {
+	sourceExt string
+	targetExt string
+	decoder   func(types.PipelineData) types.PipelineData
+	encoder   func(types.PipelineData) types.PipelineData
+	saver     func(types.PipelineData) types.PipelineData
+}
+
 func LoadPipeline(args cli.Arguments) <-chan types.PipelineData {
+	// build extension to search for
+	ext := "." + strings.ToLower(args.SourceExt)
+
 	// directory string, deleteOrigin bool
 	out := make(chan types.PipelineData)
 
@@ -33,8 +43,7 @@ func LoadPipeline(args cli.Arguments) <-chan types.PipelineData {
 				continue
 			}
 
-			// check if webp, if yes, add full path to channel
-			if strings.ToLower(filepath.Ext(entry.Name())) == args.Ext {
+			if strings.ToLower(filepath.Ext(entry.Name())) == (ext) {
 				fullpath := filepath.Join(args.DirPath, entry.Name())
 				baseName := strings.TrimSuffix(entry.Name(), filepath.Ext(entry.Name()))
 
@@ -68,13 +77,13 @@ func NewPipeline[I any, O any](input <-chan I, process func(I) O) <-chan O {
 	return out
 }
 
-func ConvertWebpToPNG(args cli.Arguments) {
-
-	fmt.Printf("Starting WebP to PNG conversion\n")
-	fmt.Printf("Source directory: %v\n", args.DirPath)
+// handles any type of image conversion based on pipeline configuration
+func (p *ConversionPipeline) Convert(args cli.Arguments) {
+	fmt.Printf("Starting %s to %s conversion\n", strings.ToUpper(p.sourceExt), strings.ToUpper(p.targetExt))
+	fmt.Printf("Source directory: %s\n", args.DirPath)
 	fmt.Printf("Mode: %s\n", map[bool]string{
-		true:  "Converting WebP to PNG and deleting original files",
-		false: "Converting WebP to PNG and preserving original files",
+		true:  fmt.Sprintf("Converting %s to %s and deleting original files", strings.ToUpper(p.sourceExt), strings.ToUpper(p.targetExt)),
+		false: fmt.Sprintf("Converting %s to %s and preserving original files", strings.ToUpper(p.sourceExt), strings.ToUpper(p.targetExt)),
 	}[args.DeleteOrigin])
 	fmt.Println()
 
@@ -96,14 +105,14 @@ func ConvertWebpToPNG(args cli.Arguments) {
 		// load data into pipeline
 		files := LoadPipeline(args)
 
-		// decode webp to raw image format
-		decoded := NewPipeline(files, codec.DecodeWebp)
+		// decode to image
+		decoded := NewPipeline(files, p.decoder)
 
-		// encode raw image as png
-		encoded := NewPipeline(decoded, codec.EncodeToPng)
+		// encode image
+		encoded := NewPipeline(decoded, p.encoder)
 
 		// save images to disk
-		saved := NewPipeline(encoded, codec.SaveToDisk)
+		saved := NewPipeline(encoded, p.saver)
 
 		for result := range saved {
 			filesFound = true

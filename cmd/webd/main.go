@@ -20,10 +20,13 @@ func main() {
 	args := cli.GetArgs()
 
 	// handle different conversion options
-	switch args.Ext {
-	case ".webp":
-		pipeline.ConvertWebpToPNG(args)
+	switch args.Mode {
+	case "webp2png":
+		pipeline.Webp2PNG(args)
 		break
+
+	default:
+		fmt.Printf("unsupported mode: %s\n", args.Mode)
 	}
 
 }
