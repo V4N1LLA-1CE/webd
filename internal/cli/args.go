@@ -12,8 +12,10 @@ const Version = "v0.1.2"
 type Arguments struct {
 	DirPath      string
 	DeleteOrigin bool
-	Ext          string
+	SourceExt    string
+	TargetExt    string
 	Verbosity    bool
+	Mode         string
 }
 
 func GetArgs() Arguments {
@@ -74,10 +76,15 @@ func GetArgs() Arguments {
 		os.Exit(1)
 	}
 
-	// set extension based on flag
-	var ext string
+	// set data based on mode
+	var sourceExt string
+	var targetExt string
+	var mode string
+
 	if *webp2png {
-		ext = ".webp"
+		sourceExt = "webp"
+		targetExt = "png"
+		mode = "webp2png"
 	} else {
 		fmt.Println("please specify a conversion type (i.e. -webp2png)\n")
 		os.Exit(1)
@@ -86,8 +93,10 @@ func GetArgs() Arguments {
 	return Arguments{
 		DirPath:      execDir,
 		DeleteOrigin: *deleteOrigin,
-		Ext:          ext,
+		SourceExt:    sourceExt,
+		TargetExt:    targetExt,
 		Verbosity:    *verbosity,
+		Mode:         mode,
 	}
 }
 
