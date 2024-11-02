@@ -7,15 +7,19 @@ import (
 	"path/filepath"
 )
 
+const Version = "v0.1.2"
+
 type Arguments struct {
 	DirPath      string
 	DeleteOrigin bool
+	Mode         string
 }
 
 func GetArgs() Arguments {
 	// define flags
 	help := flag.Bool("h", false, "show help")
 	deleteOrigin := flag.Bool("d", false, "delete original files after conversion")
+	version := flag.Bool("v", false, "show webd version")
 
 	// parse flag
 	flag.Parse()
@@ -24,6 +28,11 @@ func GetArgs() Arguments {
 		fmt.Println("\nUsage: webd [flags] <directory>")
 		fmt.Println("\nFlags:")
 		flag.PrintDefaults()
+		os.Exit(0)
+	}
+
+	if *version {
+		displayVersion()
 		os.Exit(0)
 	}
 
@@ -66,4 +75,8 @@ func GetArgs() Arguments {
 		DirPath:      execDir,
 		DeleteOrigin: *deleteOrigin,
 	}
+}
+
+func displayVersion() {
+	fmt.Printf("webd version %v\n", Version)
 }
