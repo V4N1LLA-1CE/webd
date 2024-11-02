@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/v4n1lla-1ce/webd/internal/cli"
 	"github.com/v4n1lla-1ce/webd/internal/codec"
@@ -56,7 +57,7 @@ func NewPipeline[I any, O any](input <-chan I, process func(I) O) <-chan O {
 	// make channel
 	out := make(chan O)
 
-	// spawn goroutine in background to convert image
+	// spawn goroutine in background
 	go func() {
 		for in := range input {
 			out <- process(in)
@@ -77,25 +78,57 @@ func ConvertWebpToPNG(args cli.Arguments) {
 	}[args.DeleteOrigin])
 	fmt.Println()
 
-	// load data into pipeline
-	files := LoadPipeline(args)
+	// make channel to check to see if any files are processed
+	done := make(chan struct{})
+	var filesFound bool
+	var count int
 
-	// decode webp to raw image format
-	decoded := NewPipeline(files, codec.DecodeWebp)
+	// time benchmarks
+	var start time.Time
+	var elapsed time.Duration
 
-	// encode raw image as png
-	encoded := NewPipeline(decoded, codec.EncodeToPng)
+	// background goroutine to count number of files processed
+	go func() {
 
-	// save images to disk
-	saved := NewPipeline(encoded, codec.SaveToDisk)
+		// start timing before loading data
+		start = time.Now()
 
-	for result := range saved {
-		if outPath, ok := result.Value.(string); ok {
-			if args.DeleteOrigin {
-				fmt.Printf("Converted WebP to PNG and saved to: %s\n - Deleted original: %v\n", outPath, result.SourcePath)
-			} else {
-				fmt.Printf("Converted WebP to PNG and saved to: %s\n", outPath)
+		// load data into pipeline
+		files := LoadPipeline(args)
+
+		// decode webp to raw image format
+		decoded := NewPipeline(files, codec.DecodeWebp)
+
+		// encode raw image as png
+		encoded := NewPipeline(decoded, codec.EncodeToPng)
+
+		// save images to disk
+		saved := NewPipeline(encoded, codec.SaveToDisk)
+
+		for result := range saved {
+			filesFound = true
+			if outPath, ok := result.Value.(string); ok {
+				count++
+				if args.DeleteOrigin && args.Verbosity {
+					fmt.Printf("Converted WebP to PNG and saved to: %s\n - Deleted original: %v\n", outPath, result.SourcePath)
+				} else if args.Verbosity {
+					fmt.Printf("Converted WebP to PNG and saved to: %s\n", outPath)
+				}
 			}
 		}
+		// get time elapsed since beginning
+		elapsed = time.Since(start)
+
+		// use empty struct as a signal since it takes 0 bytes of mem
+		done <- struct{}{}
+	}()
+	// wait on main thread for signal
+	<-done
+
+	if !filesFound {
+		fmt.Println("No images have been processed in the specified directory")
+	} else {
+		fmt.Printf("%v files converted\n", count)
+		fmt.Printf("Processing time: %.3f seconds\n", elapsed.Seconds())
 	}
 }
