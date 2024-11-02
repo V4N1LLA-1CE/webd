@@ -20,9 +20,10 @@ func main() {
 	args := cli.GetArgs()
 
 	// handle different conversion options
-	// switch args.Ext {
-	// case ".webp":
-	// }
+	switch args.Ext {
+	case ".webp":
+		pipeline.ConvertWebpToPNG(args)
+		break
+	}
 
-	pipeline.ConvertWebpToPNG(args)
 }
