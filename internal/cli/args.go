@@ -47,7 +47,7 @@ func GetArgs() Arguments {
 		fmt.Println("\nFlags:")
 		flag.PrintDefaults()
 		fmt.Println()
-		os.Exit(0)
+		os.Exit(1)
 	}
 
 	// get absolute path
