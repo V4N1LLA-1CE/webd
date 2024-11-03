@@ -25,6 +25,10 @@ func main() {
 		pipeline.Webp2PNG(args)
 		break
 
+	case "png2webp":
+		fmt.Println("currently being implemented")
+		break
+
 	default:
 		fmt.Printf("unsupported mode: %s\n", args.Mode)
 	}
