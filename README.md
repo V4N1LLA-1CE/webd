@@ -1,4 +1,4 @@
-# Webd - CLI Tool for image format conversion
+# Webd - CLI Tool for image conversion
 
 A fast image converter built in Go. **Webd** processes all images in a given directory, converting only targeted formats to desired formats. This tool is helpful for bulk conversions and can be potentially automated using scripts. Support for more formats coming soon!
 
