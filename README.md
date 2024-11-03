@@ -1,6 +1,19 @@
-# Webd - WebP to PNG Converter
+# Webd - CLI Tool for image format conversion
 
-A fast WebP to PNG converter built in Go. WebD processes all WebP images in a given directory, converting them to PNG format while preserving the original directory structure.
+A fast image converter built in Go. **Webd** processes all images in a given directory, converting only targeted formats to desired formats. This tool is helpful for bulk conversions and can be potentially automated using scripts. Support for more formats coming soon!
+
+## Features
+
+-  **Fast conversions powered by concurrency**
+  - PNG → WebP (Lossless compression, optimized for quality)
+  - WebP → PNG
+-  **Optional cleanup** - Delete original files after conversion
+-  **Verbose logging** - Track conversion progress and file operations
+-  **Targeted conversion** - Only processes specified file types, leaving others untouched
+
+**Note**: PNG to WebP conversion may take longer due to complex lossless compression optimizations that ensure image quality isn't lost. Lossy webp compression is currently not supported. 
+
+There currently are no plans in supporting lossy webp conversions, as this feature is mainly targeting developers who aim to optimise images for the web without losing quality, although the tradeoff to lossless compression is that it takes a bit more time.
 
 ## Table of Contents
 
@@ -88,7 +101,7 @@ source ~/.bashrc  # or source ~/.zshrc
 
 ### Command Line Options
 
-| Option Flags     | Description                                                                                             |
+| Options     | Description                                                                                             |
 |------------|------------------------------------------------------------------------------------------------------------------------------|
 | `-h`       | Display help menu                                                                                                            |
 | `-d`       | Delete original files after conversion                                                                                       |
