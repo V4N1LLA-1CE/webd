@@ -4,16 +4,12 @@ A fast image converter built in Go. **Webd** processes all images in a given dir
 
 ## Features
 
--  **Fast conversions powered by concurrency**
-  - PNG → WebP (Lossless compression, optimized for quality)
-  - WebP → PNG
--  **Optional cleanup** - Delete original files after conversion
--  **Verbose logging** - Track conversion progress and file operations
--  **Targeted conversion** - Only processes specified file types, leaving others untouched
-
-**Note**: PNG to WebP conversion may take longer due to complex lossless compression optimizations that ensure image quality isn't lost. Lossy webp compression is currently not supported. 
-
-There currently are no plans in supporting lossy webp conversions, as this feature is mainly targeting developers who aim to optimise images for the web without losing quality, although the tradeoff to lossless compression is that it takes a bit more time.
+- **Fast conversions powered by concurrency**
+- PNG → WebP
+- WebP → PNG
+- **Optional cleanup** - Delete original files after conversion
+- **Verbose logging** - Track conversion progress and file operations
+- **Targeted conversion** - Only processes specified file types, leaving others untouched
 
 ## Table of Contents
 
@@ -101,14 +97,14 @@ source ~/.bashrc  # or source ~/.zshrc
 
 ### Command Line Options
 
-| Options     | Description                                                                                             |
-|------------|------------------------------------------------------------------------------------------------------------------------------|
-| `-h`       | Display help menu                                                                                                            |
-| `-d`       | Delete original files after conversion                                                                                       |
-| `-v`       | Display version information                                                                                                  |
-| `--verbose`| Logs the files converted/deleted depending on options selected                                                               |
-| `--webp2png`| Converts Webp files to PNG in the directory specified. Other files will be left untouched                              |
-| `--png2webp`| Converts PNG files to **LOSSLESS** Webp in the directory specified. Other files will be left untouched. |
+| Options      | Description                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------ |
+| `-h`         | Display help menu                                                                          |
+| `-d`         | Delete original files after conversion                                                     |
+| `-v`         | Display version information                                                                |
+| `--verbose`  | Logs the files converted/deleted depending on options selected                             |
+| `--webp2png` | Converts Webp files to PNG in the directory specified. Other files will be left untouched  |
+| `--png2webp` | Converts PNG files to Webp in the directory specified. Other files will be left untouched. |
 
 <br>
 
