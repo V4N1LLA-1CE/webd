@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-const Version = "v0.1.3"
+const Version = "v0.1.2"
 
 type Arguments struct {
 	DirPath      string
