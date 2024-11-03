@@ -48,13 +48,14 @@ webd -h
 webd
 
 # Convert all WebP files to PNG in current directory
-webd -webp2png .
+webd --webp2png .
 
 # Convert all WebP files to PNG in a specific directory whilst deleting all original files
-webd -webp2png -d /path/to/images
+# Setting --verbose will turn on logs
+webd --webp2png -d --verbose /path/to/images
 
-# Convert all WebP files in parent directory
-webd -webp2png ../
+# Convert all PNG files to WebP in parent directory
+webd --png2webp ../
 ```
 
 ### Troubleshooting
@@ -94,6 +95,7 @@ source ~/.bashrc  # or source ~/.zshrc
 | `-v`         | Display version information                                                                    |
 | `--verbose`  | Logs the files converted/deleted depending on options selected                                 |
 | `--webp2png` | Converts ONLY Webp files to PNG in the directory specified. Other files will be left untouched |
+| `--png2webp` | Converts ONLY PNG files to Webp in the directory specified. Other files will be left untouched |
 
 <br>
 
