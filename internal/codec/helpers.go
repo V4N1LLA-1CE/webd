@@ -17,7 +17,7 @@ func SaveToDisk(data types.PipelineData) types.PipelineData {
 	}
 
 	// create output filename with .png extension into the original given directory
-	outputFilename := filepath.Join(data.Directory, data.BaseName+".png")
+	outputFilename := filepath.Join(data.Directory, data.BaseName+"."+data.TargetExt)
 
 	err := os.WriteFile(outputFilename, buf.Bytes(), 0644)
 	if err != nil {

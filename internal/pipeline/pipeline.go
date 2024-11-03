@@ -44,7 +44,12 @@ func LoadPipeline(args cli.Arguments) <-chan types.PipelineData {
 			}
 
 			if strings.ToLower(filepath.Ext(entry.Name())) == (ext) {
+				// Create full file path by joining directory and filename
+				// i.e. fullpath = "/Users/photos/vacation.webp"
 				fullpath := filepath.Join(args.DirPath, entry.Name())
+
+				// Get filename without extension
+				// i.e. baseName = "vacation"
 				baseName := strings.TrimSuffix(entry.Name(), filepath.Ext(entry.Name()))
 
 				data := types.PipelineData{
@@ -52,6 +57,7 @@ func LoadPipeline(args cli.Arguments) <-chan types.PipelineData {
 					Directory:    args.DirPath,
 					BaseName:     baseName,
 					DeleteOrigin: args.DeleteOrigin,
+					TargetExt:    args.TargetExt,
 				}
 
 				out <- data
@@ -119,9 +125,10 @@ func (p *ConversionPipeline) Convert(args cli.Arguments) {
 			if outPath, ok := result.Value.(string); ok {
 				count++
 				if args.DeleteOrigin && args.Verbosity {
-					fmt.Printf("Converted WebP to PNG and saved to: %s\n - Deleted original: %v\n", outPath, result.SourcePath)
+					fmt.Printf("Converted %s to %s and saved to: %s\n - Deleted original: %v\n", strings.ToUpper(p.sourceExt),
+						strings.ToUpper(p.targetExt), outPath, result.SourcePath)
 				} else if args.Verbosity {
-					fmt.Printf("Converted WebP to PNG and saved to: %s\n", outPath)
+					fmt.Printf("Converted %s to %s and saved to: %s\n", strings.ToUpper(p.sourceExt), strings.ToUpper(p.sourceExt), outPath)
 				}
 			}
 		}

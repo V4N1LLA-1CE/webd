@@ -26,7 +26,7 @@ func main() {
 		break
 
 	case "png2webp":
-		fmt.Println("currently being implemented")
+		pipeline.PNG2Webp(args)
 		break
 
 	default:

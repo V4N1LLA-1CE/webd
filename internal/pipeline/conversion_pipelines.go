@@ -6,7 +6,7 @@ import (
 )
 
 func Webp2PNG(args cli.Arguments) {
-	conversionPipeline := &ConversionPipeline{
+	c := &ConversionPipeline{
 		sourceExt: "webp",
 		targetExt: "png",
 		decoder:   codec.DecodeWebp,
@@ -14,5 +14,17 @@ func Webp2PNG(args cli.Arguments) {
 		saver:     codec.SaveToDisk,
 	}
 
-	conversionPipeline.Convert(args)
+	c.Convert(args)
+}
+
+func PNG2Webp(args cli.Arguments) {
+	c := &ConversionPipeline{
+		sourceExt: "png",
+		targetExt: "webp",
+		decoder:   codec.DecodePng,
+		encoder:   codec.EncodeToWebp,
+		saver:     codec.SaveToDisk,
+	}
+
+	c.Convert(args)
 }

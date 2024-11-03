@@ -6,4 +6,5 @@ type PipelineData struct {
 	Directory    string
 	BaseName     string
 	DeleteOrigin bool
+	TargetExt    string
 }
