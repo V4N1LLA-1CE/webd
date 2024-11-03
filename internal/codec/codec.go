@@ -43,7 +43,10 @@ func EncodeToWebp(data types.PipelineData) types.PipelineData {
 	var buf bytes.Buffer
 
 	// encode img and write to buf
-	err := webp.Encode(&buf, img, &webp.Options{Lossless: true})
+	err := webp.Encode(&buf, img, &webp.Options{
+		Lossless: false,
+		Quality:  95,
+	})
 	if err != nil {
 		fmt.Errorf("failed to encode to webp: %v", err)
 	}
