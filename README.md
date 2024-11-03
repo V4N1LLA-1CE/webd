@@ -88,14 +88,14 @@ source ~/.bashrc  # or source ~/.zshrc
 
 ### Command Line Options
 
-| Options      | Description                                                                                    |
-| ------------ | ---------------------------------------------------------------------------------------------- |
-| `-h`         | Display help menu                                                                              |
-| `-d`         | Delete original files after conversion                                                         |
-| `-v`         | Display version information                                                                    |
-| `--verbose`  | Logs the files converted/deleted depending on options selected                                 |
-| `--webp2png` | Converts ONLY Webp files to PNG in the directory specified. Other files will be left untouched |
-| `--png2webp` | Converts ONLY PNG files to Webp in the directory specified. Other files will be left untouched |
+| Options      | Description                                                                                                                  |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `-h`         | Display help menu                                                                                                            |
+| `-d`         | Delete original files after conversion                                                                                       |
+| `-v`         | Display version information                                                                                                  |
+| `--verbose`  | Logs the files converted/deleted depending on options selected                                                               |
+| `--webp2png` | Converts ONLY Webp files to PNG in the directory specified. Other files will be left untouched                               |
+| `--png2webp` | Converts ONLY PNG files to Webp in the directory specified. Other files will be left untouched. Compression is **LOSSLESS**. |
 
 <br>
 
