@@ -137,7 +137,7 @@ func (p *ConversionPipeline) Convert(args cli.Arguments) {
 	if !filesFound {
 		fmt.Println("No images have been processed in the specified directory")
 	} else {
-		fmt.Printf("%v files converted\n", count)
+		fmt.Printf("\n%v files converted\n", count)
 		fmt.Printf("Processing time: %.3f seconds\n", elapsed.Seconds())
 	}
 }

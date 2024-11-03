@@ -45,6 +45,7 @@ func GetArgs() Arguments {
 
 	// make sure there is 1 directory argument
 	if len(args) != 1 {
+		fmt.Println("\nYou must specify a directory!")
 		fmt.Println("\nUsage: webd [flags] <directory>")
 		fmt.Println("\nFlags:")
 		flag.PrintDefaults()
