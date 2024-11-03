@@ -2,6 +2,10 @@
 
 A fast image converter built in Go. **Webd** processes all images in a given directory, converting only targeted formats to desired formats. This tool is helpful for bulk conversions and can be potentially automated using scripts. Support for more formats coming soon!
 
+## Demo (v0.1.2)
+![Demo GIF Optimizer](https://github.com/user-attachments/assets/cacbc04c-ec69-4641-a786-783877359a5f)
+
+
 ## Features
 
 - **Fast conversions powered by concurrency**
