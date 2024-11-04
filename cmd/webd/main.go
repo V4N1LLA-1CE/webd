@@ -22,7 +22,7 @@ func main() {
 	// handle different conversion options
 	switch args.Mode {
 	case "webp2png":
-		pipeline.Webp2PNG(args)
+		pipeline.Webp2Png(args)
 		break
 
 	case "png2webp":
@@ -35,6 +35,14 @@ func main() {
 
 	case "png2jpg":
 		pipeline.Png2Jpg(args)
+		break
+
+	case "jpg2webp":
+		pipeline.Jpg2Webp(args)
+		break
+
+	case "webp2jpg":
+		pipeline.Webp2Jpg(args)
 		break
 
 	default:
