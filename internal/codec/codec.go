@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"image"
+	"image/jpeg"
 	"image/png"
 	"os"
 
@@ -87,6 +88,50 @@ func EncodeToPng(data types.PipelineData) types.PipelineData {
 	err := png.Encode(&buf, img)
 	if err != nil {
 		fmt.Errorf("failed to encode to png: %v", err)
+		return data
+	}
+
+	data.Value = buf
+	return data
+}
+
+func DecodeJpg(data types.PipelineData) types.PipelineData {
+	// open file
+	f, err := os.Open(data.SourcePath)
+	if err != nil {
+		fmt.Errorf("failed to open file: %v", err)
+		return data
+	}
+	defer f.Close()
+
+	// decode jpg
+	img, err := jpeg.Decode(f)
+	if err != nil {
+		fmt.Errorf("failed to decode jpg: %v", err)
+		return data
+	}
+
+	data.Value = img
+	return data
+}
+
+func EncodeToJpg(data types.PipelineData) types.PipelineData {
+	// assert data.Value to be image.Image so encode works
+	img, ok := data.Value.(image.Image)
+	if !ok {
+		fmt.Errorf("value is not an image")
+		return data
+	}
+
+	// make a buffer
+	var buf bytes.Buffer
+
+	// encode and write to buffer with quality setting
+	err := jpeg.Encode(&buf, img, &jpeg.Options{
+		Quality: 95,
+	})
+	if err != nil {
+		fmt.Errorf("failed to encode to jpg: %v", err)
 		return data
 	}
 

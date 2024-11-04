@@ -29,6 +29,14 @@ func main() {
 		pipeline.PNG2Webp(args)
 		break
 
+	case "jpg2png":
+		pipeline.Jpg2Png(args)
+		break
+
+	case "png2jpg":
+		pipeline.Png2Jpg(args)
+		break
+
 	default:
 		fmt.Printf("unsupported mode: %s\n", args.Mode)
 	}

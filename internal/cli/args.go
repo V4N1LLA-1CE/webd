@@ -46,6 +46,8 @@ func GetArgs() Arguments {
 	// conversion mode flags
 	webp2png := flag.Bool("webp2png", false, "convert WebP to PNG")
 	png2webp := flag.Bool("png2webp", false, "convert PNG to WebP")
+	jpg2png := flag.Bool("jpg2png", false, "convert JPEG to PNG")
+	png2jpg := flag.Bool("png2jpg", false, "convert PNG to JPEG")
 
 	// parse flag
 	flag.Parse()
@@ -66,6 +68,8 @@ func GetArgs() Arguments {
 	modes := []ConversionMode{
 		{enabled: *webp2png, modeName: "webp2png", sourceExt: "webp", targetExt: "png"},
 		{enabled: *png2webp, modeName: "png2webp", sourceExt: "png", targetExt: "webp"},
+		{enabled: *jpg2png, modeName: "jpg2png", sourceExt: "jpg", targetExt: "png"},
+		{enabled: *png2jpg, modeName: "png2jpg", sourceExt: "png", targetExt: "jpg"},
 	}
 
 	enabledModes := 0

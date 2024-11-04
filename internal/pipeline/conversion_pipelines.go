@@ -28,3 +28,25 @@ func PNG2Webp(args cli.Arguments) {
 
 	c.Convert(args)
 }
+
+func Jpg2Png(args cli.Arguments) {
+	c := &ConversionPipeline{
+		sourceExt: "jpg",
+		targetExt: "png",
+		decoder:   codec.DecodeJpg,
+		encoder:   codec.EncodeToPng,
+		saver:     codec.SaveToDisk,
+	}
+	c.Convert(args)
+}
+
+func Png2Jpg(args cli.Arguments) {
+	c := &ConversionPipeline{
+		sourceExt: "png",
+		targetExt: "jpg",
+		decoder:   codec.DecodePng,
+		encoder:   codec.EncodeToJpg,
+		saver:     codec.SaveToDisk,
+	}
+	c.Convert(args)
+}
