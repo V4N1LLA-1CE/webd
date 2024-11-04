@@ -128,7 +128,7 @@ func (p *ConversionPipeline) Convert(args cli.Arguments) {
 					fmt.Printf("Converted %s to %s and saved to: %s\n - Deleted original: %v\n", strings.ToUpper(p.sourceExt),
 						strings.ToUpper(p.targetExt), outPath, result.SourcePath)
 				} else if args.Verbosity {
-					fmt.Printf("Converted %s to %s and saved to: %s\n", strings.ToUpper(p.sourceExt), strings.ToUpper(p.sourceExt), outPath)
+					fmt.Printf("Converted %s to %s and saved to: %s\n", strings.ToUpper(p.sourceExt), strings.ToUpper(p.targetExt), outPath)
 				}
 			}
 		}
