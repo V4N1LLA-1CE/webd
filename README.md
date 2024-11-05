@@ -104,11 +104,16 @@ source ~/.bashrc  # or source ~/.zshrc
 | Options      | Description                                                                                |
 | ------------ | ------------------------------------------------------------------------------------------ |
 | `-h`         | Display help menu                                                                          |
-| `-d`         | Delete original files after conversion                                                     |
-| `-v`         | Display version information                                                                |
+| `-d`         | Delete original files after conversion                                                   |
+| `-v`         | Display version information.                                                                |
 | `--verbose`  | Logs the files converted/deleted depending on options selected                             |
-| `--webp2png` | Converts Webp files to PNG in the directory specified. Other files will be left untouched  |
-| `--png2webp` | Converts PNG files to Webp in the directory specified. Other files will be left untouched. |
+| `--webp2png` | Converts WEBP files to PNG in the directory specified |
+| `--webp2jpg` | Converts WEBP files to JPEG in the directory specified |
+| `--png2webp` | Converts PNG files to WEBP in the directory specified |
+| `--png2jpg` | Converts PNG files to JPEG in the directory specified |
+| `--jpg2png` | Converts JPEG files to PNG in the directory specified |
+| `--jpg2webp` | Converts JPEG files to WEBP in the directory specified |
+
 
 <br>
 
