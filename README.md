@@ -9,11 +9,12 @@ A fast image converter built in Go. **Webd** processes all images in a given dir
 ## Features
 
 - **Fast conversions powered by concurrency**
-- PNG → WebP
-- WebP → PNG
-- **Optional cleanup** - Delete original files after conversion
-- **Verbose logging** - Track conversion progress and file operations
-- **Targeted conversion** - Only processes specified file types, leaving others untouched
+- PNG ⇔ WebP
+- JPEG ⇔ PNG
+- JPEG ⇔ WEBP
+- **Optional cleanup** - Delete/replace original files after conversion
+- **Verbose logging** - Track conversion timing and operations
+- **Targeted conversion** - Only processes specified file types, leaving others untouched (no need to worry about having other file types mixed in)
 
 ## Table of Contents
 
